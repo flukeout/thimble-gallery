@@ -136,10 +136,13 @@ var gallery = {
 
     $(".activities *").remove();
 
+    var results = false;
+
     for(var i = 0; i < activities.length; i++) {
       var activity = activities[i];
 
       if(activity.display) {
+        results = true;
         var newItem = this.itemTemplate.clone();
         newItem.find(".thumbnail").css("background-image","url("+activity.thumbnail_url+")" );
         newItem.find(".thumbnail").attr("href", activity.url);
@@ -155,24 +158,38 @@ var gallery = {
       }
     }
     
-    this.displayTags();
+    if(results) {
+      $(".no-results").hide();
+    } else {
+      $(".no-results").show();
+    }
+
+    if(this.mode == "featured" || !results) {
+      this.displayTags("featured");
+    } else {
+      this.displayTags("search");
+    }
     
   },
   
   // Displays the tags!
-  displayTags: function(){
+  displayTags: function(type){
+    
     $(".tag-list .tag").remove();
 
     var tags = {};
 
     for(var i = 0; i < activities.length; i++) {
       var activity = activities[i];
-      for(var j = 0; j < activity.tags.length; j++) {
-        var tag = activity.tags[j];
-        if(!tags[tag]) {
-          tags[tag] = 1;
-        } else {
-          tags[tag]++;
+
+      if(type == "featured" || activity.display) {
+        for(var j = 0; j < activity.tags.length; j++) {
+          var tag = activity.tags[j];
+          if(!tags[tag]) {
+            tags[tag] = 1;
+          } else {
+            tags[tag]++;
+          }
         }
       }
     }
@@ -194,6 +211,18 @@ var gallery = {
     for(var i = 0; i < tagNumber; i++) {
       var tag = tagsArray[i];
       $(".tag-list").append("<a class='tag' tag='"+tag[0]+"' title='Search for projects with tag: "+tag[0]+"'>" + tag[0] + " <span class='count'>" + tag[1] + "<span></a>");
+    }
+    
+    if(type == "featured") {
+      $(".popular-tags .tags-title").text("Popular tags");
+    } else {
+      $(".popular-tags .tags-title").text("Tags in these projects");
+    }
+    
+    if(tagNumber > 0) {
+      $(".popular-tags .tags-title").show();
+    } else {
+      $(".popular-tags .tags-title").hide();
     }
   },
 

@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>A Prototype</title>
+    <title>Thimble Homepage Gallery</title>
     <link rel="icon" type="image/png" sizes="196x196" href="favicon.png">
     <link rel="stylesheet" href="css/reset.css" type="text/css">
     <link rel="stylesheet/less" href="css/style.less" type="text/css">
@@ -9,7 +9,6 @@
     <link rel="icon" type="image/png" sizes="196x196" href="images/favicon.png">
 
     <script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/nunjucks.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/app.js" type="text/javascript" charset="utf-8"></script>
 
     <script>
@@ -32,26 +31,28 @@
     <div class="page-wrapper">
 
 
+      <div class='gallery'>
 
-<div class='gallery'>
+        <div class='search-wrapper'>
+          <input class='search' placeholder='Find a topic or theme' type='text' />
+          <div class='border'></div>
+          <div class='icon search-icon'></div>
+          <div class='clear icon clear-icon'></div>
+        </div>
 
-  <div class='search-wrapper'>
-    <input class='search' placeholder='Find a topic or theme' type='text' />
-    <div class='border'></div>
-    <div class='icon search-icon'></div>
-    <div class='clear icon clear-icon'></div>
-  </div>
-
-  <div class='popular-tags'>
-    <span class='tags-title'>Popular tags</span> <span class='tag-list'></span>
-  </div>
+        <div class='popular-tags'>
+          <span class='tags-title'></span>
+          <span class='tag-list'></span>
+        </div>
   
-  <div class='activities'>
-    
-  
-  </div>
+        <div class='activities'><!-- activities are added here--></div>
 
-</div>
+        <div class='no-results'>
+          <h1>No results found!</h1>
+          <p>Try a different search term, or click on the popular tags above.</p>
+        </div>
+
+      </div>
 
 
 

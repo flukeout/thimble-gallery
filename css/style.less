@@ -6,7 +6,7 @@ html {
 body {
   background: #EEE;
   padding: 30px;
-    height: 2000px;
+  height: 2000px;
 }
 
 .page-wrapper {
@@ -15,37 +15,9 @@ body {
   height: 2000px;
 }
 
-
-// Probably want to drop in some media query stuff too... narrow css?
-
-// Animation Example
-
-.animation-example {
-  animation: sampleAnimation .4s ease-out;
-  animation-iteration-count: 3;
-  animation-delay: .5s;
-}
-
-@keyframes sampleAnimation {
-  0% {
-    transform: scale(1.5);
-    opacity: .5;
-  }
-  50%{
-    transform: scale(.7);
-    opacity: .5;
-  }
-  100% {
-    transform: scale(.7);
-    opacity: 0;
-  }
-}
-
-
 .activities {
   display: flex;
   flex-wrap: wrap;
-  
 }
 
 .activity {
@@ -58,11 +30,9 @@ body {
   max-width: 350px;
   position: relative;
   padding-bottom: 80px;
-  
 
   .details {
     padding: 16px 16px 18px 16px;
-    
   }
   
   a.button {
@@ -76,14 +46,11 @@ body {
     background: #51b56b;
     border-radius: 2px;
     text-decoration: none;
-
     position: absolute;
     bottom: 16px;
     left: 16px;
     width: ~"calc(100% - 32px)";
   }
-
-
 
   .tags {
     color: rgba(0,0,0,.4);
@@ -289,3 +256,18 @@ body {
   }
 }
   
+  
+.no-results {
+  text-align: center;
+  padding-top: 30px;
+  display: none;
+  
+  h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  p {
+    color: rgba(0,0,0,.6);
+  }
+}
