@@ -113,19 +113,16 @@ var gallery = {
         searchString.indexOf(this.term) > -1 ? activity.display = true : activity.display = false;
       }
     }
-    
 
 
-
-    $(".activities").addClass("fade");
     var that = this;
+    $(".activities").addClass("fade");
     setTimeout(function(){
       that.displayActivities(that.activities);
     },150)
     setTimeout(function(){
       $(".activities").removeClass("fade");
     },300)
-
 
   },
   
