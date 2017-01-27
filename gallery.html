@@ -8,7 +8,7 @@
   <div class='popular-tags'>
     Popular tags
     <span class='tag-list'>
-      <a class='tag' href="#">javascript</a> <a class='tag' href="#">css</a> <a class='tag' href="#">html</a> <a class='tag' href="#">media</a>
+      <a class='tag' href="#">javascript</a> <a class='tag' href="#">css</a> <a class='tag' href="#">html</a> <a class='tag' href="#">mediaM </a>
     </span>
   </div>
   
@@ -16,12 +16,9 @@
     
   {% for activity in activities %}
     <div class='activity'>
-      <a href='{{ activity.url }}' style='aabackground-image: url({{activity.thumbnail_url}})'class='thumbnail'>
-        
-        <img src='{{activity.thumbnail_url}}'/>
-        
+      <a href='{{ activity.url }}' style='background-image: url({{activity.thumbnail_url}})'class='thumbnail'>
+        <!-- <img src='{{activity.thumbnail_url}}'/> -->
       </a>
-      
 
       <div class='details'>
         <h1 class='title'>{{ activity.title }}</h1>
@@ -34,9 +31,9 @@
             <a class='tag' href="#">{{ tag }}</a>,
           {% endfor %}
         </div>
-        
-        <a href='{{ activity.url + 'remix' }}' class="button">Remix</a>
       </div>
+      <a href='{{ activity.url + 'remix' }}' class="button">Remix</a>
+
     </div>
   {% endfor %}
   

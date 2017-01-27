@@ -1,3 +1,12 @@
+var niceColors = [
+  "yellowgreen",
+  "slateblue",
+  "deepskyblue",
+  "palevioletred",
+  "gold",
+  "orangered"
+]
+
 var activities = [
   {
     title: "Keep Calm and Carry On",
