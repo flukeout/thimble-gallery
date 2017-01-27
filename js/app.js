@@ -1,28 +1,31 @@
+// Thimble Gallery V1
+
 $(document).ready(function(){
-  
-  $("body").on("click",".tag",function(){
-    gallery.tagClicked($(this).attr("tag"));
-  })
-
-  gallery.init(activities);
-
+  gallery.init(activities); // activities is the JSON data for all activities
 });
 
 
 var gallery = {
+  
+  // Initialize the gallery and display activities
   init: function(activities) {
     var that = this;
-
+    
+    // Add all the click handlers.
     $(".gallery").on("click",".clear",function(){ that.clearSearch() });
     $(".gallery").on("keydown",".search",function(){ that.keyPressed() });
+    $(".gallery").on("click",".tag",function(){ that.tagClicked($(this).attr("tag")) });
 
     this.activities = activities;
     this.filterActivities();
-    
   },
-  typeInterval : false,
-  searchSpeed : 300,
-  
+
+
+  typeInterval : false, // Keeps track of if a user is typing
+  searchSpeed : 300,    // How long do we wait between keystrokes to search?
+  mode : "featured",    // Featured vs Search, affects the layout
+
+  // Fires whenever someone types into the search field 
   keyPressed : function() {
     clearTimeout(this.typeInterval);
     var that = this;
@@ -72,9 +75,8 @@ var gallery = {
     },300)
 
   },
-  
-  mode : "featured",
-  
+
+  // The template for each item we display for an activity
   itemTemplate : $(`
     <div class='activity'>
       <a class='thumbnail'></a>
@@ -89,6 +91,7 @@ var gallery = {
       </div>
     </div>
   `),
+   
     
   // Adds all of the items in the activities array
   displayActivities: function(activities){
@@ -132,7 +135,8 @@ var gallery = {
     
   },
   
-  // Displays the tags!
+  
+  // Displays the list of tags under the search bar.
   displayTags: function(type){
     
     $(".tag-list .tag").remove();
@@ -141,7 +145,6 @@ var gallery = {
 
     for(var i = 0; i < activities.length; i++) {
       var activity = activities[i];
-
       if(type == "featured" || activity.display) {
         for(var j = 0; j < activity.tags.length; j++) {
           var tag = activity.tags[j];
@@ -176,7 +179,7 @@ var gallery = {
     if(type == "featured") {
       $(".popular-tags .tags-title").text("Popular tags");
     } else {
-      $(".popular-tags .tags-title").text("Tags in these projects");
+      $(".popular-tags .tags-title").text("Related tags");
     }
     
     if(tagNumber > 0) {
@@ -186,7 +189,8 @@ var gallery = {
     }
   },
 
-  // Handles when a popular tag or a project tag is clicked.
+
+  // Handles when any tag is clicked.
   tagClicked : function(term) {
     $(".search").val(term);
     $(".search").removeClass("pop").width($(".search").width());
@@ -206,12 +210,11 @@ var gallery = {
     }
   },
 
+
   // Clears the search field
   clearSearch : function() {
     $(".search").val("");
     this.filterActivities();
     this.toggleClear();
   },
-  
 }
-
