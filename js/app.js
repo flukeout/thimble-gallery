@@ -173,7 +173,10 @@ var gallery = {
     
     for(var i = 0; i < tagNumber; i++) {
       var tag = tagsArray[i];
-      $(".tag-list").append("<a class='tag' tag='"+tag[0]+"' title='Search for projects tagged " + tag[0] + "'>" + tag[0] + " <span class='count'>" + tag[1] + "<span></a>");
+      if(tag[0] != $(".search").val().toLowerCase()) {
+        $(".tag-list").append("<a class='tag' tag='"+tag[0]+"' title='Search for projects tagged " + tag[0] + "'>" + tag[0] + " <span class='count'>" + tag[1] + "<span></a>");        
+      }
+
     }
     
     if(type == "featured") {
