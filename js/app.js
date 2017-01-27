@@ -54,11 +54,8 @@ $(document).ready(function(){
   // $(".result").html(gallery);
   
   $("body").on("click",".tag",function(){
-    gallery.tagClicked($(this).text());
+    gallery.tagClicked($(this).attr("tag"));
   })
-
-
-
 
   gallery.init(activities);
 
@@ -136,10 +133,10 @@ var gallery = {
     
   // Adds all of the items in the activities array
   displayActivities: function(activities){
-    
+
     $(".activities *").remove();
-        
-    for(var i =0; i < activities.length; i++) {
+
+    for(var i = 0; i < activities.length; i++) {
       var activity = activities[i];
 
       if(activity.display) {
@@ -152,36 +149,73 @@ var gallery = {
         newItem.find(".button").attr("href", activity.url + "/remix");
       
         for(var j = 0; j < activity.tags.length; j++) {
-          newItem.find(".tags").append("<a class='tag'>" + activity.tags[j] + "</a>")
+          newItem.find(".tags").append("<a class='tag' tag='"+activity.tags[j]+"' title='See other projects tagged: " + activity.tags[j] + "' >" + activity.tags[j] + "</a> ");
         }
-
         $(".activities").append(newItem);
-        
       }
-
     }
+    
+    this.displayTags();
+    
   },
   
+  // Displays the tags!
+  displayTags: function(){
+    $(".tag-list .tag").remove();
+
+    var tags = {};
+
+    for(var i = 0; i < activities.length; i++) {
+      var activity = activities[i];
+      for(var j = 0; j < activity.tags.length; j++) {
+        var tag = activity.tags[j];
+        if(!tags[tag]) {
+          tags[tag] = 1;
+        } else {
+          tags[tag]++;
+        }
+      }
+    }
+    
+    var tagsArray = [];
+    
+    for(var k in tags) {
+      tagsArray.push([k, tags[k]]);
+    }
+    
+    tagsArray.sort(function(x,y){
+      return y[1] - x[1];
+    });
+    
+    var tagNumber = 5;
+    
+    tagNumber > tagsArray.length ? tagNumber = tagsArray.length : null;
+    
+    for(var i = 0; i < tagNumber; i++) {
+      var tag = tagsArray[i];
+      $(".tag-list").append("<a class='tag' tag='"+tag[0]+"' title='Search for projects with tag: "+tag[0]+"'>" + tag[0] + " <span class='count'>" + tag[1] + "<span></a>");
+    }
+  },
+
+  // Handles when a popular tag or a project tag is clicked.
   tagClicked : function(term) {
     $(".search").val(term);
     this.toggleClear();
     this.filterActivities();
   },
-  
-  
+
+
   // Shows and hides the clear button in the search field when appropriate
   toggleClear: function() {
-    
     var termLength = $(".search").val().length;
-
     if(termLength > 0) {
       $(".gallery .search-wrapper").attr("active","");
     } else {
       $(".gallery .search-wrapper").removeAttr("active");
     }
-    
   },
-  
+
+
   // Clears the search field
   clearSearch : function() {
     $(".search").val("");
@@ -192,7 +226,6 @@ var gallery = {
   changeTerm: function(term) {
     
     // var term = $(".search").val().toLowerCase();
-
     // $(".activity").each(function(){
     //   $(this).hide();
     //   var title = $(this).find("h1").text().toLowerCase();
@@ -203,65 +236,8 @@ var gallery = {
     //     $(this).show();
     //   }
     // });
-    
-    
-    
-    
-    
   }
   
 }
 
-
-
-function updateTagList(){
-  var tagWrapper = $(".tag-list");
-  
-  
-  
-  
-}
-
-function toggleClear(){
- 
-}
-
-
-
-// function changeTerm(term) {
-//   $(".search").val(term);
-//   var newVal = $(".search").val();
-//   runSearch();
-//   $(".clear").show();
-// }
-
-
-function actuallyFilter(){
-  // var term = $(".search").val().toLowerCase();
-//
-//   $(".activity").each(function(){
-//     $(this).hide();
-//     var title = $(this).find("h1").text().toLowerCase();
-//     var titleIndex = title.indexOf(term);
-//     var tags = $(this).find(".tags").text().toLowerCase();
-//     var tagIndex = tags.indexOf(term);
-//     if(tagIndex > -1 || titleIndex > -1) {
-//       $(this).show();
-//     }
-//   });
-}
-
-function runSearch(){
-  // $(".activities").addClass("fade");
-  // $(".popular-tags").addClass("fade");
-  // setTimeout(function(){
-  //   $(".activities").removeClass("fade");
-  //   $(".popular-tags").removeClass("fade");
-  // },500)
-  //
-  // setTimeout(function(){
-  //   actuallyFilter();
-  // },250)
-
-}
 

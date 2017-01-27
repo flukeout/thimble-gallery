@@ -100,6 +100,10 @@ body {
       &:hover {
         text-decoration: underline;
       }
+      
+      &:not(:last-child):after {
+        content: ",";
+      }
     }
   }
 
@@ -144,6 +148,12 @@ body {
     .clear {
       opacity: 1;
     }
+    .search {
+      background: white;
+    }
+    .border {
+      background: #2d9961;
+    }
   }
   
   .border {
@@ -152,12 +162,11 @@ body {
     height: 2px;
     width: ~"calc(100% - 40px)";
     left: 20px;
-    top: -16px;    
+    top: -16px;
   }
   
   .search:focus ~ .border {
     background: #2d9961;
-
   }
 
   .search {
@@ -179,6 +188,8 @@ body {
       background: white;
     }
   }
+  
+  
   
   .icon {
     position: absolute;
@@ -208,31 +219,41 @@ body {
   &[active] .clear-icon {
     cursor: pointer;
   }
-
 }
-
-
 
 .popular-tags {
   text-align: center;
   margin: 15px 0 20px 0;
-  color: rgba(0,0,0,.6);
+
+
+  .tags-title {
+    color: rgba(0,0,0,.3);
+  }
   
   a {
     background: #3897c1;
     color: white;
     margin-bottom: 5px;
-    margin-right: 1px;
+    margin-right: 4px;
     display: inline-block;
-    padding: 8px 13px 8px 13px;
+    padding: 8px 43px 8px 13px;
     font-weight: 300;
-    // background: #9cdbf4;
-    // background-color: rgba(56,151,193,.2);
     text-decoration: none;
     font-size: 1em;
     border-radius: 15px;
     transition: opacity .1s ease-out;
+    cursor: pointer;
+    position: relative;
   
+    .count {
+      background: rgba(255,255,255,.2);
+      border-radius: 0 15px 15px 0;
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 8px 13px 8px 10px;
+    
+    }
   
     &:hover {
       opacity: .8;
