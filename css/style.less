@@ -18,7 +18,19 @@ body {
 .activities {
   display: flex;
   flex-wrap: wrap;
+  transition: opacity .125s ease-out;
+  justify-content: center;
+  opacity: 1;
+  text-align: center;
+  
+  &.fade {
+    opacity: 0;
+  }
+  
+
 }
+
+
 
 .gallery-title {
   font-size: 32px;
@@ -130,6 +142,7 @@ body {
     }
     .search {
       background: white;
+      box-shadow: 0px 2px 2px rgba(0,0,0,.15);
     }
     .border {
       background: #2d9961;
@@ -161,15 +174,14 @@ body {
     padding: 20px 20px 22px 20px;
     outline: none;
     font-family: inherit;
-    border-radius: 5px;
+    border-radius: 3px;
     transition: background .15s ease-out;
 
     &:focus {
       background: white;
+      box-shadow: 0px 2px 2px rgba(0,0,0,.15);
     }
   }
-  
-  
   
   .icon {
     position: absolute;
@@ -198,7 +210,7 @@ body {
   
   &[active] .clear-icon {
     cursor: pointer;
-      opacity: .5;
+    opacity: .5;
     
     &:hover {
       opacity: 1;
@@ -252,20 +264,13 @@ body {
 }
 
 
-.activities {
-  transition: opacity .125s ease-out;
-  opacity: 1;
-}
 
-.fade {
-  opacity: 0;
-}
 
   
   
 .no-results {
   text-align: center;
-  padding-top: 30px;
+  padding-top: 40px;
   display: none;
   
   h1 {
@@ -275,5 +280,6 @@ body {
 
   p {
     color: rgba(0,0,0,.6);
+    font-size: 18px;
   }
 }
