@@ -163,7 +163,7 @@ var gallery = {
         newItem.find(".button").attr("href", activity.url + "/remix");
       
         for(var j = 0; j < activity.tags.length; j++) {
-          newItem.find(".tags").append("<a class='tag' tag='"+activity.tags[j]+"' title='See other projects tagged: " + activity.tags[j] + "' >" + activity.tags[j] + "</a> ");
+          newItem.find(".tags").append("<a class='tag' tag='"+activity.tags[j]+"' title='See other projects tagged " + activity.tags[j] + "' >" + activity.tags[j] + "</a> ");
         }
         $(".activities").append(newItem);
       }
@@ -221,7 +221,7 @@ var gallery = {
     
     for(var i = 0; i < tagNumber; i++) {
       var tag = tagsArray[i];
-      $(".tag-list").append("<a class='tag' tag='"+tag[0]+"' title='Search for projects with tag: "+tag[0]+"'>" + tag[0] + " <span class='count'>" + tag[1] + "<span></a>");
+      $(".tag-list").append("<a class='tag' tag='"+tag[0]+"' title='Search for projects tagged " + tag[0] + "'>" + tag[0] + " <span class='count'>" + tag[1] + "<span></a>");
     }
     
     if(type == "featured") {

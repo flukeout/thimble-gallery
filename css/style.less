@@ -49,6 +49,7 @@ body {
     box-sizing: border-box;
     margin-top: 20px;
     color: white;
+    font-size: 1.2em;
     background: #51b56b;
     border-radius: 2px;
     text-decoration: none;
@@ -59,8 +60,13 @@ body {
   }
 
   .tags {
-    color: rgba(0,0,0,.4);
-  
+
+    &:before {
+      content: "Tags:";
+      margin-right: 5px;
+      font-size: .9em;
+      color: rgba(0,0,0,.4);
+    }
     
     a {
       color: #3897c1;
@@ -76,10 +82,11 @@ body {
       
       &:not(:last-child):after {
         content: ",";
+        color: rgba(0,0,0,.4);
+        text-decoration: none;
       }
     }
   }
-
 
   .thumbnail {
      height: 170px;
@@ -87,10 +94,10 @@ body {
      background-size: cover;
      display: block;
      border-bottom: solid 1px rgba(0,0,0,.1);
+     transition: opacity .15s ease-out;
    
-     img {
-       width: 100%;
-       border-bottom: solid 1px #ddd;
+     &:hover {
+       opacity: .8;
      }
   }
   
@@ -151,7 +158,7 @@ body {
     width: 100%;
     font-size: 22px;
     display: block;
-    padding: 20px 20px;
+    padding: 20px 20px 22px 20px;
     outline: none;
     font-family: inherit;
     border-radius: 5px;
@@ -191,7 +198,13 @@ body {
   
   &[active] .clear-icon {
     cursor: pointer;
+      opacity: .5;
+    
+    &:hover {
+      opacity: 1;
+    }
   }
+
 }
 
 .popular-tags {
