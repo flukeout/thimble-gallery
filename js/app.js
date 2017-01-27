@@ -114,7 +114,19 @@ var gallery = {
       }
     }
     
-    this.displayActivities(this.activities);
+
+
+
+    $(".activities").addClass("fade");
+    var that = this;
+    setTimeout(function(){
+      that.displayActivities(that.activities);
+    },150)
+    setTimeout(function(){
+      $(".activities").removeClass("fade");
+    },300)
+
+
   },
   
   mode : "featured",
@@ -134,6 +146,8 @@ var gallery = {
   // Adds all of the items in the activities array
   displayActivities: function(activities){
 
+    
+    
     $(".activities *").remove();
 
     var results = false;
@@ -244,7 +258,6 @@ var gallery = {
     }
   },
 
-
   // Clears the search field
   clearSearch : function() {
     $(".search").val("");
@@ -252,21 +265,5 @@ var gallery = {
     this.toggleClear();
   },
   
-  changeTerm: function(term) {
-    
-    // var term = $(".search").val().toLowerCase();
-    // $(".activity").each(function(){
-    //   $(this).hide();
-    //   var title = $(this).find("h1").text().toLowerCase();
-    //   var titleIndex = title.indexOf(term);
-    //   var tags = $(this).find(".tags").text().toLowerCase();
-    //   var tagIndex = tags.indexOf(term);
-    //   if(tagIndex > -1 || titleIndex > -1) {
-    //     $(this).show();
-    //   }
-    // });
-  }
-  
 }
-
 

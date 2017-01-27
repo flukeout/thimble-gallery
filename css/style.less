@@ -190,7 +190,7 @@ body {
 
 .popular-tags {
   text-align: center;
-  margin: 15px 0 20px 0;
+  margin: 15px 0 15px 0;
 
 
   .tags-title {
@@ -237,24 +237,15 @@ body {
 }
 
 
-.fade {
-  animation: fade .5s ease-out;
+.activities {
+  transition: opacity .125s ease-out;
+  opacity: 1;
 }
 
-@keyframes fade {
-  0% {
-    opacity: 1;
-  }
-  40% {
-    opacity: 0;
-  }
-  60% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+.fade {
+  opacity: 0;
 }
+
   
   
 .no-results {
