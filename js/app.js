@@ -116,12 +116,12 @@ var gallery = {
 
 
     var that = this;
-    $(".activities").addClass("fade");
+    $(".activities, .popular-tags").addClass("fade");
     setTimeout(function(){
       that.displayActivities(that.activities);
     },150)
     setTimeout(function(){
-      $(".activities").removeClass("fade");
+      $(".fade").removeClass("fade");
     },300)
 
   },
@@ -240,6 +240,8 @@ var gallery = {
   // Handles when a popular tag or a project tag is clicked.
   tagClicked : function(term) {
     $(".search").val(term);
+    $(".search").removeClass("pop").width($(".search").width());
+    $(".search").addClass("pop");
     this.toggleClear();
     this.filterActivities();
   },
