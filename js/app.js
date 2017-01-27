@@ -1,57 +1,4 @@
-var activities = [
-  {
-    title: "Keep Calm and Carry On",
-    thumbnail_url : "https://thimble.mozilla.org/img/thumbnail-keep-calm.png",
-    url: "https://thimble.mozilla.org/en-US/projects/72/",
-    description: "This is activity one, the first activity!",
-    tags: ["css","html","color"],
-    featured : true
-  },
-  {
-    title: "Back to School Postcard",
-    thumbnail_url : "https://thimble.mozilla.org/img/thumbnail-postcard.png",
-    url: "https://thimble.mozilla.org/en-US/projects/72/",
-    description: "This is activity two, the second activity!",
-    tags: ["images","code","javascript","interactive"],
-    featured : true
-  },
-  {
-    title: "Current Events Comic",
-    thumbnail_url : "https://thimble.mozilla.org/img/thumbnail-comic-strip.png",
-    url: "https://thimble.mozilla.org/en-US/projects/72/",
-    description: "This is activity two, the second activity!",
-    tags: ["fun","images","attribution","search"],
-    featured : true
-  },
- 
-  {
-    title: "Three Things I <3",
-    thumbnail_url : "https://thimble.mozilla.org/img/thumbnail-three-things-i-heart.png",
-    url: "https://thimble.mozilla.org/en-US/projects/72/",
-    description: "This is activity two, the second activity!",
-    tags: ["images","links"]  
-  },
-  {
-    title: "Homework Excuse Generator",
-    thumbnail_url : "https://thimble.mozilla.org/img/thumbnail-homework-excuse-generator.png",
-    url: "https://thimble.mozilla.org/en-US/projects/72/",
-    description: "This is activity two, the second activity!",
-    tags: ["code","array","javascript"]
-  },
-  {
-    title: "My Six Word Summer",
-    thumbnail_url : "https://thimble.mozilla.org/img/thumbnail-my-six-word-summer.png",
-    url: "https://thimble.mozilla.org/en-US/projects/72/",
-    description: "This is activity one, the first activity!",
-    tags: ["css","html","writing"]
-  }
-];
-
-var gallery;
-
 $(document).ready(function(){
-  // gallery = nunjucks.render('gallery.html', { activities: activities });
-  // $(".result").html(gallery);
   
   $("body").on("click",".tag",function(){
     gallery.tagClicked($(this).attr("tag"));
@@ -136,15 +83,16 @@ var gallery = {
         <p class='description'></p>
         <div class='tags'></div>
       </div>
-      <a class="button">Remix</a>
+      <div class='buttons'>
+        <a class="remix">Remix</a>
+        <a class="teaching-kit">Teaching Kit</a>
+      </div>
     </div>
   `),
     
   // Adds all of the items in the activities array
   displayActivities: function(activities){
 
-    
-    
     $(".activities *").remove();
 
     var results = false;
@@ -159,12 +107,13 @@ var gallery = {
         newItem.find(".thumbnail").attr("href", activity.url);
         newItem.find(".title").text(activity.title);
         newItem.find(".description").text(activity.description);
-        newItem.find(".description").text(activity.description);
-        newItem.find(".button").attr("href", activity.url + "/remix");
-      
+        newItem.find(".remix").attr("href", activity.url + "/remix");
+        newItem.find(".teaching-kit").attr("href", activity.teaching_kit_url);
+
         for(var j = 0; j < activity.tags.length; j++) {
           newItem.find(".tags").append("<a class='tag' tag='"+activity.tags[j]+"' title='See other projects tagged " + activity.tags[j] + "' >" + activity.tags[j] + "</a> ");
         }
+
         $(".activities").append(newItem);
       }
     }

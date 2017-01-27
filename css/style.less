@@ -48,26 +48,47 @@ body {
     .details {
       padding: 16px 16px 18px 16px;
     }
-  
-    a.button {
-      width: 100%;
-      display: block;
-      text-align: center;
-      padding: 15px 10px;
-      box-sizing: border-box;
-      margin-top: 20px;
-      color: white;
-      font-size: 1.2em;
-      background: #51b56b;
-      border-radius: 2px;
-      text-decoration: none;
+
+    .buttons {
       position: absolute;
-      bottom: 16px;
-      left: 16px;
-      width: ~"calc(100% - 32px)";
+      bottom: 0px;
+      width: 100%;
+      padding: 16px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+    
+      a {
+        flex: 1;
+        margin: 0 3px;
+        text-decoration: none;
+        font-size: 16px;
+        text-align: center;
+        border-radius: 2px;
+        padding: 15px 0;
+      }
+    }
+  
+    a.remix {
+      display: block;
+      color: white;
+      background: #51b56b;
+    }
+
+    a.teaching-kit {
+      color: #666;
+      font-weight: 300;
+      display: none;
+      background: #EEE;
+
+      &[href] {
+        display: block;
+      }
     }
 
     .tags {
+      margin-top: 10px;
 
       &:before {
         content: "Tags:";
