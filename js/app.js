@@ -242,7 +242,7 @@ var gallery = {
     if(type == "featured") {
       $(".popular-tags .tags-title").text("Popular tags");
     } else {
-      $(".popular-tags .tags-title").text("Filter by tag");
+      $(".popular-tags .tags-title").text("Add filter");
     }
 
     if(tagNumber > 0) {
