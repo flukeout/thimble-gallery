@@ -22,6 +22,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     transition: opacity .125s ease-out;
+    padding-top: 15px;
   }
 
   .fade {
@@ -159,9 +160,10 @@ body {
 
   .search-wrapper-outer {
     display: inline-block;
-    padding: 13px 13px 16px 13px;
+    padding: 10px 13px 13px 13px;
     border-radius: 4px;
     background: rgba(0,0,0,.07);
+    background: white;
   }
 
   .search-wrapper {
@@ -206,22 +208,20 @@ body {
       display: block;
       margin: 0 auto;
       font-weight: 300;
-      border-radius: 4px;
       border: none;
-
       width: 350px;
-
-      padding: 12px 8px;
+      padding: 6px 0px;
       position: relative;
       top: 2px;
       font-size: 18px;
       display: inline-block;
+      border-bottom: dashed 1px rgba(0,0,0,.2);
 
       font-family: inherit;
       outline: none;
       // border-radius: 3px;
       transition: background .15s ease-out;
-      // border-bottom: solid 2px #CCC;
+
 
       &:focus {
         // background: white;
@@ -231,8 +231,8 @@ body {
 
     .icon {
       position: absolute;
-      top: 6px;
-      right: 0px;
+      top: 0px;
+      right: -6px;
       width: 36px;
       height: 36px;
       background-size: 18px;
@@ -252,6 +252,8 @@ body {
 
     .clear-icon {
       background-image: ~"url(./images/clear.svg)";
+      background-size: 16px;
+
     }
 
     &[active] .clear-icon {
@@ -266,7 +268,7 @@ body {
 
   .popular-tags {
     text-align: center;
-    margin: 20px 0 15px 0;
+    margin: 20px 0 0 0;
     transition: opacity .125s ease-out;
 
     .tags-title {
@@ -366,6 +368,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     opacity: .6;
+    transition: opacity .15s ease-out;
 
     &:hover {
       opacity: 1;

@@ -13,17 +13,16 @@ var gallery = {
 
     // Add all the click handlers.
     $(".gallery").on("click",".clear",function(){ that.clearSearch() });
-    $(".gallery").on("keydown",".search",function(){ that.keyPressed() });
+    $(".gallery").on("keydown",".search",function(e){ that.keyPressed(e) });
     $(".gallery").on("click",".tag",function(){ that.tagClicked($(this).attr("tag")) });
-    $(".gallery").on("click",".search-tags .remove",function(){ that.removeTag($(this)) });
-
+    $(".gallery").on("click",".search-tags .remove",function(){ that.removeTag($(this).parent()) });
 
     this.activities = activities;
     this.filterActivities();
   },
 
-  removeTag : function(el) {
-    var tag = el.closest(".search-tag");
+  removeTag : function(tag) {
+
     var tagName = tag.attr("tag");
     var index = this.searchTerms.indexOf(tagName);
     if(index > -1) {
@@ -40,13 +39,25 @@ var gallery = {
   searchTerms : [],
 
   // Fires whenever someone types into the search field
-  keyPressed : function() {
+  keyPressed : function(e) {
     clearTimeout(this.typeInterval);
     var that = this;
-    this.typeInterval = setTimeout(function(){
-      that.toggleClear();
-      that.filterActivities();
-    }, that.searchSpeed);
+
+    // Removes the last tag if there is no search term
+    if($(".search").val().length == 0 && e.keyCode == 8) {
+      var tagNum = $(".search-tags .search-tag").length;
+      if(tagNum > 0) {
+        this.removeTag($(".search-tag:last-child"));
+        return;
+      }
+    }
+
+    // if($(".search").val().length > 0) {
+      this.typeInterval = setTimeout(function(){
+        that.toggleClear();
+        that.filterActivities();
+      }, that.searchSpeed);
+    // }
   },
 
 
@@ -122,13 +133,14 @@ var gallery = {
 
     $(".activities *").remove();
 
-    var results = false;
+
+    var resultCount = 0
 
     for(var i = 0; i < activities.length; i++) {
       var activity = activities[i];
 
       if(activity.display) {
-        results = true;
+        resultCount++;
         var newItem = this.itemTemplate.clone();
         newItem.find(".thumbnail").css("background-image","url("+activity.thumbnail_url+")" );
         newItem.find(".thumbnail").attr("href", activity.url);
@@ -145,17 +157,25 @@ var gallery = {
       }
     }
 
-    if(results) {
+    if(resultCount > 0) {
       $(".no-results").hide();
     } else {
       $(".no-results").show();
     }
 
-    if(this.mode == "featured" || !results) {
+    if(resultCount > 1) {
+      $(".popular-tags").show();
+    } else {
+      $(".popular-tags").hide();
+    }
+
+    if(this.mode == "featured" || resultCount == 0) {
       this.displayTags("featured");
     } else {
       this.displayTags("search");
     }
+
+
   },
 
 
@@ -195,16 +215,11 @@ var gallery = {
       if(push) {
         tagsArray.push([k, tags[k]]);
       }
-
-
     }
-
-    console.log(tagsArray);
 
     tagsArray.sort(function(x,y){
       return y[1] - x[1];
     });
-
 
     var tagNumber = 5;
 
@@ -212,13 +227,11 @@ var gallery = {
 
     for(var i = 0; i < tagNumber; i++) {
       var tag = tagsArray[i];
-      // if(tag[0] != $(".search").val().toLowerCase()) {
-        $(".tag-list").append("<a class='tag' tag='"+tag[0]+"' title='Search for projects tagged " + tag[0] + "'>" + tag[0] + " <span class='count'>" + tag[1] + "<span></a>");
-      // }
+      $(".tag-list").append("<a class='tag' tag='"+tag[0]+"' title='Search for projects tagged " + tag[0] + "'>" + tag[0] + " <span class='count'>" + tag[1] + "<span></a>");
     }
 
     if(type == "featured") {
-      $(".popular-tags .tags-title").text("Filter by tag");
+      $(".popular-tags .tags-title").text("Popular tags");
     } else {
       $(".popular-tags .tags-title").text("Filter by tag");
     }
@@ -233,12 +246,18 @@ var gallery = {
 
   // Handles when any tag is clicked.
   tagClicked : function(term) {
+
     // $(".search").val(term);
-    // $(".search-wrapper").removeClass("pop").width($(".search-wrapper").width());
-    // $(".search-wrapper").addClass("pop");
+    $(".search-tags").append("<span tag='"+term+"'class='search-tag'>" + term + "<a class='remove'></a></span>");
+
+
+    $(".search-wrapper-outer").addClass("pop");
+    setTimeout(function(){
+      $(".search-wrapper-outer").removeClass("pop");
+    },200)
     // this.toggleClear();
 
-    $(".search-tags").append("<span tag='"+term+"'class='search-tag'>" + term + "<a class='remove'></a></span>");
+
     this.searchTerms.push(term);
     this.filterActivities();
 
