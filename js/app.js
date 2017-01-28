@@ -16,6 +16,7 @@ var gallery = {
     $(".gallery").on("keydown",".search",function(e){ that.keyPressed(e) });
     $(".gallery").on("click",".tag",function(){ that.tagClicked($(this).attr("tag")) });
     $(".gallery").on("click",".search-tags .remove",function(){ that.removeTag($(this).parent()) });
+    $(".gallery").on("click",".start-over",function(){ that.startOver() });
 
     this.activities = activities;
     this.filterActivities();
@@ -30,8 +31,16 @@ var gallery = {
     }
     tag.remove();
     this.filterActivities();
+    this.toggleClear();
   },
 
+  startOver : function(){
+    $(".search").val("");
+    $("[active]").removeAttr("active");
+    this.searchTerms = [];
+    $(".search-tags *").remove();
+    this.filterActivities();
+  },
 
   typeInterval : false, // Keeps track of if a user is typing
   searchSpeed : 500,    // How long do we wait between keystrokes to search?
@@ -89,7 +98,7 @@ var gallery = {
         activity.display = true;
 
         // Check all the search terms...
-        console.log(this.searchTerms);
+
         for(var j = 0; j < this.searchTerms.length; j++) {
           var thisTerm = this.searchTerms[j];
           searchString.indexOf(thisTerm) < 0 ? activity.display = false : null;
@@ -247,26 +256,35 @@ var gallery = {
   // Handles when any tag is clicked.
   tagClicked : function(term) {
 
-    // $(".search").val(term);
-    $(".search-tags").append("<span tag='"+term+"'class='search-tag'>" + term + "<a class='remove'></a></span>");
 
+    $(".search-tags").append("<span tag='"+term+"'class='search-tag'>" + term + "<a class='remove'></a></span>");
 
     $(".search-wrapper-outer").addClass("pop");
     setTimeout(function(){
       $(".search-wrapper-outer").removeClass("pop");
     },200)
-    // this.toggleClear();
+
 
 
     this.searchTerms.push(term);
     this.filterActivities();
-
+    this.toggleClear();
   },
 
 
   // Shows and hides the clear button in the search field when appropriate
   toggleClear: function() {
+
+
     var termLength = $(".search").val().length;
+
+    if(this.searchTerms.length > 0) {
+      $(".gallery .search-wrapper").attr("tags","");
+    } else {
+      $(".gallery .search-wrapper").removeAttr("tags");
+    }
+
+
     if(termLength > 0) {
       $(".gallery .search-wrapper").attr("active","");
     } else {
