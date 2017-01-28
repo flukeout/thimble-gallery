@@ -15,15 +15,29 @@ var gallery = {
     $(".gallery").on("click",".clear",function(){ that.clearSearch() });
     $(".gallery").on("keydown",".search",function(){ that.keyPressed() });
     $(".gallery").on("click",".tag",function(){ that.tagClicked($(this).attr("tag")) });
+    $(".gallery").on("click",".search-tags .remove",function(){ that.removeTag($(this)) });
+
 
     this.activities = activities;
     this.filterActivities();
   },
 
+  removeTag : function(el) {
+    var tag = el.closest(".search-tag");
+    var tagName = tag.attr("tag");
+    var index = this.searchTerms.indexOf(tagName);
+    if(index > -1) {
+      this.searchTerms.splice(index,1);
+    }
+    tag.remove();
+    this.filterActivities();
+  },
+
 
   typeInterval : false, // Keeps track of if a user is typing
-  searchSpeed : 300,    // How long do we wait between keystrokes to search?
+  searchSpeed : 500,    // How long do we wait between keystrokes to search?
   mode : "featured",    // Featured vs Search, affects the layout
+  searchTerms : [],
 
   // Fires whenever someone types into the search field
   keyPressed : function() {
@@ -39,7 +53,7 @@ var gallery = {
   // Determines which activities should have a display: true
   filterActivities : function(){
 
-    if($('.search').val().length > 0) {
+    if($('.search').val().length > 0 || this.searchTerms.length > 0) {
       this.mode = "search";
     } else {
       this.mode = "featured"
@@ -60,7 +74,17 @@ var gallery = {
         var activity = this.activities[i];
         var searchString = activity.title + activity.description + activity.tags;
         searchString = searchString.toLowerCase();
-        searchString.indexOf(this.term) > -1 ? activity.display = true : activity.display = false;
+
+        activity.display = true;
+
+        // Check all the search terms...
+        console.log(this.searchTerms);
+        for(var j = 0; j < this.searchTerms.length; j++) {
+          var thisTerm = this.searchTerms[j];
+          searchString.indexOf(thisTerm) < 0 ? activity.display = false : null;
+        }
+
+        searchString.indexOf(this.term) < 0 ? activity.display = false : null;
       }
     }
 
@@ -159,12 +183,28 @@ var gallery = {
     var tagsArray = [];
 
     for(var k in tags) {
-      tagsArray.push([k, tags[k]]);
+      var push = false;
+
+      for(var i = this.searchTerms.length; i >= 0; i--) {
+        var searchTerm = this.searchTerms[i];
+        if(this.searchTerms.indexOf(k) < 0) {
+          push = true;
+        }
+      }
+
+      if(push) {
+        tagsArray.push([k, tags[k]]);
+      }
+
+
     }
+
+    console.log(tagsArray);
 
     tagsArray.sort(function(x,y){
       return y[1] - x[1];
     });
+
 
     var tagNumber = 5;
 
@@ -172,15 +212,15 @@ var gallery = {
 
     for(var i = 0; i < tagNumber; i++) {
       var tag = tagsArray[i];
-      if(tag[0] != $(".search").val().toLowerCase()) {
+      // if(tag[0] != $(".search").val().toLowerCase()) {
         $(".tag-list").append("<a class='tag' tag='"+tag[0]+"' title='Search for projects tagged " + tag[0] + "'>" + tag[0] + " <span class='count'>" + tag[1] + "<span></a>");
-      }
+      // }
     }
 
     if(type == "featured") {
-      $(".popular-tags .tags-title").text("Popular tags");
+      $(".popular-tags .tags-title").text("Filter by tag");
     } else {
-      $(".popular-tags .tags-title").text("Related tags");
+      $(".popular-tags .tags-title").text("Filter by tag");
     }
 
     if(tagNumber > 0) {
@@ -193,11 +233,15 @@ var gallery = {
 
   // Handles when any tag is clicked.
   tagClicked : function(term) {
-    $(".search").val(term);
-    $(".search").removeClass("pop").width($(".search").width());
-    $(".search").addClass("pop");
-    this.toggleClear();
+    // $(".search").val(term);
+    // $(".search-wrapper").removeClass("pop").width($(".search-wrapper").width());
+    // $(".search-wrapper").addClass("pop");
+    // this.toggleClear();
+
+    $(".search-tags").append("<span tag='"+term+"'class='search-tag'>" + term + "<a class='remove'></a></span>");
+    this.searchTerms.push(term);
     this.filterActivities();
+
   },
 
 
