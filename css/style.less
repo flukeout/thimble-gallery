@@ -56,7 +56,7 @@ body {
       display: flex;
       justify-content: center;
       align-items: stretch;
-    
+
       a {
         flex: 1;
         margin: 0 3px;
@@ -72,7 +72,7 @@ body {
         }
       }
     }
-  
+
     a.remix {
       display: block;
       color: white;
@@ -90,7 +90,7 @@ body {
       &[href] {
         display: block;
       }
-      
+
       &:hover {
         background: #EEE;
       }
@@ -105,7 +105,7 @@ body {
         font-size: .9em;
         color: rgba(0,0,0,.4);
       }
-    
+
       a {
         color: #3897c1;
         margin-bottom: 5px;
@@ -113,11 +113,11 @@ body {
         text-decoration: none;
         font-size: .9em;
         cursor: pointer;
-      
+
         &:hover {
           text-decoration: underline;
         }
-      
+
         &:not(:last-child):after {
           content: ",";
           color: rgba(0,0,0,.4);
@@ -138,12 +138,12 @@ body {
         opacity: .8;
       }
     }
-  
+
     .title {
       font-size: 25px;
       margin: 5px 0 10px 0;
     }
-  
+
     .description {
       font-size: 1em;
       color: rgba(0,0,0,.6);
@@ -174,7 +174,7 @@ body {
         background: #2d9961;
       }
     }
-  
+
     .border {
       background: #ddd;
       position: relative;
@@ -183,7 +183,7 @@ body {
       left: 20px;
       top: -16px;
     }
-  
+
     .search:focus ~ .border {
       background: #2d9961;
     }
@@ -192,7 +192,7 @@ body {
       display: block;
       margin: 0 auto;
       font-weight: 300;
-      background: transparent;
+      background: rgba(255,255,255,.5);
       border: none;
       width: 100%;
       font-size: 22px;
@@ -202,11 +202,11 @@ body {
       font-family: inherit;
       border-radius: 3px;
       transition: background .15s ease-out;
-      
+
       &.pop {
         animation: pop .2s ease-out;
       }
-      
+
       @keyframes pop {
         0% { transform: scale(1) }
         30% { transform: scale(1.03) }
@@ -218,7 +218,7 @@ body {
         box-shadow: 0px 2px 2px rgba(0,0,0,.15);
       }
     }
-  
+
     .icon {
       position: absolute;
       top: 11px;
@@ -243,11 +243,11 @@ body {
     .clear-icon {
       background-image: ~"url(./images/clear.svg)";
     }
-  
+
     &[active] .clear-icon {
       cursor: pointer;
       opacity: .5;
-    
+
       &:hover {
         opacity: 1;
       }
@@ -256,14 +256,14 @@ body {
 
   .popular-tags {
     text-align: center;
-    margin: 15px 0 15px 0;
+    margin: 20px 0 15px 0;
     transition: opacity .125s ease-out;
 
     .tags-title {
       color: rgba(0,0,0,.6);
       margin-right: 5px;
     }
-  
+
     a {
       background: #3897c1;
       color: white;
@@ -279,7 +279,7 @@ body {
       transition: opacity .1s ease-out;
       cursor: pointer;
       position: relative;
-  
+
       .count {
         background: rgba(255,255,255,.2);
         border-radius: 0 15px 15px 0;
@@ -289,7 +289,7 @@ body {
         padding: 8px 13px 8px 10px;
         display: none;
       }
-  
+
       &:hover {
         opacity: .8;
       }
@@ -300,7 +300,7 @@ body {
     text-align: center;
     padding-top: 40px;
     display: none;
-  
+
     h1 {
       font-size: 28px;
       margin-bottom: 15px;
@@ -310,5 +310,5 @@ body {
       color: rgba(0,0,0,.6);
       font-size: 18px;
     }
-  }  
+  }
 }

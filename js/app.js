@@ -6,11 +6,11 @@ $(document).ready(function(){
 
 
 var gallery = {
-  
+
   // Initialize the gallery and display activities
   init: function(activities) {
     var that = this;
-    
+
     // Add all the click handlers.
     $(".gallery").on("click",".clear",function(){ that.clearSearch() });
     $(".gallery").on("keydown",".search",function(){ that.keyPressed() });
@@ -25,17 +25,17 @@ var gallery = {
   searchSpeed : 300,    // How long do we wait between keystrokes to search?
   mode : "featured",    // Featured vs Search, affects the layout
 
-  // Fires whenever someone types into the search field 
+  // Fires whenever someone types into the search field
   keyPressed : function() {
     clearTimeout(this.typeInterval);
     var that = this;
-    this.typeInterval = setTimeout(function(){ 
+    this.typeInterval = setTimeout(function(){
       that.toggleClear();
       that.filterActivities();
     }, that.searchSpeed);
   },
-  
-  
+
+
   // Determines which activities should have a display: true
   filterActivities : function(){
 
@@ -44,7 +44,7 @@ var gallery = {
     } else {
       this.mode = "featured"
     }
-    
+
     // If there is no search term, shows the featured activities only
     if(this.mode == "featured") {
       for(var i = 0; i < this.activities.length; i++) {
@@ -52,7 +52,7 @@ var gallery = {
         activity.featured ? activity.display = true : activity.display = false;
       }
     }
-    
+
     // Checks for the search term in the title, description  and tags
     if(this.mode == "search") {
       this.term = $(".search").val().toLowerCase();
@@ -91,8 +91,8 @@ var gallery = {
       </div>
     </div>
   `),
-   
-    
+
+
   // Adds all of the items in the activities array
   displayActivities: function(activities){
 
@@ -120,7 +120,7 @@ var gallery = {
         $(".activities").append(newItem);
       }
     }
-    
+
     if(results) {
       $(".no-results").hide();
     } else {
@@ -132,13 +132,12 @@ var gallery = {
     } else {
       this.displayTags("search");
     }
-    
   },
-  
-  
+
+
   // Displays the list of tags under the search bar.
   displayTags: function(type){
-    
+
     $(".tag-list .tag").remove();
 
     var tags = {};
@@ -156,35 +155,34 @@ var gallery = {
         }
       }
     }
-    
+
     var tagsArray = [];
-    
+
     for(var k in tags) {
       tagsArray.push([k, tags[k]]);
     }
-    
+
     tagsArray.sort(function(x,y){
       return y[1] - x[1];
     });
-    
+
     var tagNumber = 5;
-    
+
     tagNumber > tagsArray.length ? tagNumber = tagsArray.length : null;
-    
+
     for(var i = 0; i < tagNumber; i++) {
       var tag = tagsArray[i];
       if(tag[0] != $(".search").val().toLowerCase()) {
-        $(".tag-list").append("<a class='tag' tag='"+tag[0]+"' title='Search for projects tagged " + tag[0] + "'>" + tag[0] + " <span class='count'>" + tag[1] + "<span></a>");        
+        $(".tag-list").append("<a class='tag' tag='"+tag[0]+"' title='Search for projects tagged " + tag[0] + "'>" + tag[0] + " <span class='count'>" + tag[1] + "<span></a>");
       }
-
     }
-    
+
     if(type == "featured") {
       $(".popular-tags .tags-title").text("Popular tags");
     } else {
       $(".popular-tags .tags-title").text("Related tags");
     }
-    
+
     if(tagNumber > 0) {
       $(".popular-tags .tags-title").show();
     } else {
