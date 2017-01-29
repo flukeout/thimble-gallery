@@ -12,11 +12,15 @@ var gallery = {
     var that = this;
 
     // Add all the click handlers.
-    $(".gallery").on("click",".clear",function(){ that.clearSearch() });
-    $(".gallery").on("keydown",".search",function(e){ that.keyPressed(e) });
-    $(".gallery").on("click",".tag",function(){ that.tagClicked($(this).attr("tag")) });
-    $(".gallery").on("click",".search-tags .remove",function(){ that.removeTag($(this).parent()) });
-    $(".gallery").on("click",".start-over",function(){ that.startOver() });
+    this.galleryEl = $(".gallery");
+
+    this.galleryEl.on("click",".clear",function(){ that.clearSearch() });
+    this.galleryEl.on("keydown",".search",function(e){ that.keyPressed(e) });
+    this.galleryEl.on("focus",".search",function(e){ that.toggleClear() });
+    this.galleryEl.on("blur",".search",function(e){ that.toggleClear() });
+    this.galleryEl.on("click",".tag",function(){ that.tagClicked($(this).attr("tag")) });
+    this.galleryEl.on("click",".search-tags .remove",function(){ that.removeTag($(this).parent()) });
+    this.galleryEl.on("click",".start-over",function(){ that.startOver() });
 
     this.activities = activities;
     this.filterActivities();
@@ -32,14 +36,6 @@ var gallery = {
     tag.remove();
     this.filterActivities();
     this.toggleClear();
-  },
-
-  startOver : function(){
-    $(".search").val("");
-    $("[active]").removeAttr("active");
-    this.searchTerms = [];
-    $(".search-tags *").remove();
-    this.filterActivities();
   },
 
   typeInterval : false, // Keeps track of if a user is typing
@@ -275,27 +271,46 @@ var gallery = {
   // Shows and hides the clear button in the search field when appropriate
   toggleClear: function() {
 
+    if($(".search").is(":focus")){
+      this.galleryEl.addClass("has-focus");
+    } else {
+      this.galleryEl.removeClass("has-focus");
+    }
 
     var termLength = $(".search").val().length;
 
-    if(this.searchTerms.length > 0) {
-      $(".gallery .search-wrapper").attr("tags","");
-    } else {
-      $(".gallery .search-wrapper").removeAttr("tags");
-    }
-
-
     if(termLength > 0) {
-      $(".gallery .search-wrapper").attr("active","");
+      this.galleryEl.addClass("has-term");
     } else {
-      $(".gallery .search-wrapper").removeAttr("active");
+      this.galleryEl.removeClass("has-term");
     }
+
+    if(this.searchTerms.length > 0) {
+      this.galleryEl.addClass("has-tags");
+    } else {
+      this.galleryEl.removeClass("has-tags");
+    }
+
+  },
+
+
+  startOver : function(){
+    $(".search").val("");
+    $("[active]").removeAttr("active");
+
+    this.searchTerms = [];
+    $(".search-tags *").remove();
+    this.filterActivities();
   },
 
 
   // Clears the search field
   clearSearch : function() {
+
+    // Shouldn't redo the search unless there is a change...
+
     $(".search").val("");
+
     this.filterActivities();
     this.toggleClear();
   },
