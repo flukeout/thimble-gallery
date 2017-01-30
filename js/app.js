@@ -29,9 +29,9 @@ var gallery = {
   removeTag : function(tag) {
 
     var tagName = tag.attr("tag");
-    var index = this.searchTerms.indexOf(tagName);
+    var index = this.searchTags.indexOf(tagName);
     if(index > -1) {
-      this.searchTerms.splice(index,1);
+      this.searchTags.splice(index,1);
     }
     tag.remove();
     this.filterActivities();
@@ -41,7 +41,7 @@ var gallery = {
   typeInterval : false, // Keeps track of if a user is typing
   searchSpeed : 500,    // How long do we wait between keystrokes to search?
   mode : "featured",    // Featured vs Search, affects the layout
-  searchTerms : [],
+  searchTags : [],      // The selected tags that we're filtering with
 
   // Fires whenever someone types into the search field
   keyPressed : function(e) {
@@ -57,19 +57,17 @@ var gallery = {
       }
     }
 
-    // if($(".search").val().length > 0) {
-      this.typeInterval = setTimeout(function(){
-        that.updateUI();
-        that.filterActivities();
-      }, that.searchSpeed);
-    // }
+    this.typeInterval = setTimeout(function(){
+      that.updateUI();
+      that.filterActivities();
+    }, that.searchSpeed);
   },
 
 
   // Determines which activities should have a display: true
   filterActivities : function(){
 
-    if($('.search').val().length > 0 || this.searchTerms.length > 0) {
+    if($('.search').val().length > 0 || this.searchTags.length > 0) {
       this.mode = "search";
     } else {
       this.mode = "featured"
@@ -85,7 +83,9 @@ var gallery = {
 
     // Checks for the search term in the title, description  and tags
     if(this.mode == "search") {
-      this.term = $(".search").val().toLowerCase();
+
+      var searchTerms = $(".search").val().toLowerCase().split(" ");
+
       for(var i = 0; i < this.activities.length; i++) {
         var activity = this.activities[i];
         var searchString = activity.title + activity.description + activity.tags + activity.author;
@@ -93,13 +93,17 @@ var gallery = {
 
         activity.display = true;
 
-        // Check all the search terms...
-        for(var j = 0; j < this.searchTerms.length; j++) {
-          var thisTerm = this.searchTerms[j];
+        // Check for each of the selected tags...
+        for(var j = 0; j < this.searchTags.length; j++) {
+          var thisTerm = this.searchTags[j];
           searchString.indexOf(thisTerm) < 0 ? activity.display = false : null;
         }
 
-        searchString.indexOf(this.term) < 0 ? activity.display = false : null;
+        // Check for each of the search terms...
+        for(var j = 0; j < searchTerms.length; j++) {
+          var thisTerm = searchTerms[j];
+          searchString.indexOf(thisTerm) < 0 ? activity.display = false : null;
+        }
       }
     }
 
@@ -193,9 +197,9 @@ var gallery = {
     for(var k in tags) {
       var push = false;
 
-      for(var i = this.searchTerms.length; i >= 0; i--) {
-        var searchTerm = this.searchTerms[i];
-        if(this.searchTerms.indexOf(k) < 0) {
+      for(var i = this.searchTags.length; i >= 0; i--) {
+        var searchTerm = this.searchTags[i];
+        if(this.searchTags.indexOf(k) < 0) {
           push = true;
         }
       }
@@ -241,7 +245,7 @@ var gallery = {
       $(".search-wrapper-outer").removeClass("pop");
     },200)
 
-    this.searchTerms.push(term);
+    this.searchTags.push(term);
     this.filterActivities();
     this.updateUI();
   },
@@ -280,7 +284,7 @@ var gallery = {
       this.galleryEl.removeClass("has-term");
     }
 
-    if(this.searchTerms.length > 0) {
+    if(this.searchTags.length > 0) {
       this.galleryEl.addClass("has-tags");
 
     } else {
@@ -314,7 +318,7 @@ var gallery = {
     $(".search").val("");
     $("[active]").removeAttr("active");
 
-    this.searchTerms = [];
+    this.searchTags = [];
     $(".search-tags *").remove();
     this.filterActivities();
   },
