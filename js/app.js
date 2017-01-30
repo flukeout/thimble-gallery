@@ -128,7 +128,7 @@ var gallery = {
       </div>
       <div class='buttons'>
         <a class="remix">Remix</a>
-        <a class="teaching-kit">Teaching Kit</a>
+        <a class="teaching-kit">Lesson Plan</a>
       </div>
     </div>
   `),
