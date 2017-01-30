@@ -13,7 +13,6 @@ a {
   &:hover {
     text-decoration: underline;
   }
-
 }
 
 body {
@@ -31,16 +30,8 @@ body {
 .gallery {
   text-align: center;
 
-  .activities {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    transition: opacity .125s ease-out;
-    padding-top: 15px;
-  }
-
-  .fade {
-    opacity: 0;
+  p {
+    color: rgba(0,0,0,.6);
   }
 
   .gallery-title {
@@ -49,12 +40,76 @@ body {
     margin-bottom: 25px;
   }
 
+  .results-title {
+    margin: 25px 0 0 0;
+    font-size: 26px;
+    text-align: left;
+    color: rgba(0,0,0,.5);
+    border-bottom: solid 2px rgba(0,0,0,.1);
+    padding-bottom: 10px;
+  }
+
+  .popular-tags {
+    text-align: center;
+    margin: 20px 0 0 0;
+    transition: opacity .125s ease-out;
+
+    .tags-title {
+      color: rgba(0,0,0,.6);
+      margin-right: 5px;
+    }
+
+    a {
+      background: #3897c1;
+      color: white;
+      margin-bottom: 5px;
+      margin-right: 4px;
+      display: inline-block;
+      padding: 8px 13px 8px 13px;
+      font-weight: 300;
+      text-decoration: none;
+      font-size: 1em;
+      border-radius: 15px;
+      transition: opacity .1s ease-out;
+      cursor: pointer;
+      position: relative;
+
+      .count {
+        background: rgba(255,255,255,.2);
+        border-radius: 0 15px 15px 0;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 8px 13px 8px 10px;
+        display: none;
+      }
+
+      &:hover {
+        opacity: .8;
+      }
+    }
+  }
+
+
+  .activities {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    transition: opacity .125s ease-out;
+    padding-top: 15px;
+    margin: 0 -10px;
+  }
+
+  .fade {
+    opacity: 0;
+  }
+
   .activity {
     flex: 1;
     margin: 12px;
     width: 200px;
     text-align: left;
-    box-shadow: 0 1px 3px rgba(0,0,0,.25);
+    box-shadow: 0 0px 3px rgba(0,0,0,.25);
     background: white;
     min-width: 250px;
     max-width: 350px;
@@ -69,7 +124,7 @@ body {
       position: absolute;
       bottom: 0px;
       width: 100%;
-      padding: 16px;
+      padding: 18px 16px;
       box-sizing: border-box;
       display: flex;
       justify-content: center;
@@ -82,7 +137,7 @@ body {
         font-size: 16px;
         text-align: center;
         border-radius: 2px;
-        padding: 15px 0 13px 0;
+        padding: 14px 0 14px 0;
         transition: opacity .15s ease-out;
 
         &:hover {
@@ -96,13 +151,15 @@ body {
       color: white;
       background: #51b56b;
       border: solid 2px #51b56b;
+      padding-bottom: 14px;
+      border-bottom: solid 3px rgba(0,0,0,.2);
     }
 
     a.teaching-kit {
       color: #666;
       font-weight: 300;
       display: none;
-      border: solid 1px #CCC;
+      border: solid 2px rgba(0,0,0,.1);
       transition: background .2s ease-out;
 
       &[href] {
@@ -116,6 +173,7 @@ body {
 
     .tags {
       margin-top: 10px;
+      font-weight: 300;
 
       &:before {
         content: "Tags:";
@@ -125,6 +183,7 @@ body {
       }
 
       a {
+        font-weight: inherit;
         color: #3897c1;
         margin-bottom: 5px;
         display: inline-block;
@@ -145,11 +204,13 @@ body {
     }
 
     .thumbnail {
-      height: 170px;
+      height: 185px;
       background-position: top;
       background-size: cover;
       display: block;
       border-bottom: solid 1px rgba(0,0,0,.1);
+      // border: solid 5px rgba(255,255,255,.4);
+      border-bottom: none;
       transition: opacity .15s ease-out;
 
       &:hover {
@@ -158,16 +219,19 @@ body {
     }
 
     .title {
-      font-size: 25px;
-      margin: 5px 0 10px 0;
+      font-size: 22px;
+      margin: 5px 0 8px 0;
+    }
+
+    .author {
+      font-weight: 300;
     }
 
     .description {
       font-size: 1em;
-      color: rgba(0,0,0,.6);
       margin-bottom: 1em;
       line-height: 140%;
-      margin: 0 0 20px 0;
+      margin: 12px 0 20px 0;
       font-weight: 300;
     }
   }
@@ -175,8 +239,6 @@ body {
   .search-wrapper-outer {
     display: inline-block;
   }
-
-
 
   .search-wrapper {
     padding: 10px 13px 13px 13px;
@@ -263,7 +325,7 @@ body {
   .search-active {
     background: white;
     box-shadow: 0px 2px 3px rgba(0,0,0,.2);
-    transform: scale(1.025);
+    transform: scale(1.04);
   }
 
   &.has-focus .search-wrapper {
@@ -271,7 +333,7 @@ body {
   }
 
   &.has-term {
-    .search-wapper {
+    .search-wrapper {
       .search-active;
     }
 
@@ -293,47 +355,6 @@ body {
     .search-active;
   }
 
-  .popular-tags {
-    text-align: center;
-    margin: 20px 0 0 0;
-    transition: opacity .125s ease-out;
-
-    .tags-title {
-      color: rgba(0,0,0,.6);
-      margin-right: 5px;
-    }
-
-    a {
-      background: #3897c1;
-      color: white;
-      margin-bottom: 5px;
-      margin-right: 4px;
-      display: inline-block;
-      padding: 8px 13px 8px 13px;
-      font-weight: 300;
-      text-decoration: none;
-      font-size: 1em;
-      border-radius: 15px;
-      transition: opacity .1s ease-out;
-      cursor: pointer;
-      position: relative;
-
-      .count {
-        background: rgba(255,255,255,.2);
-        border-radius: 0 15px 15px 0;
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 8px 13px 8px 10px;
-        display: none;
-      }
-
-      &:hover {
-        opacity: .8;
-      }
-    }
-  }
-
   .no-results {
     text-align: center;
     padding-top: 40px;
@@ -349,7 +370,6 @@ body {
       color: rgba(0,0,0,.6);
       font-size: 18px;
     }
-
   }
 
   .pop {
@@ -368,6 +388,7 @@ body {
 .search-tags {
   display: inline-block;
 }
+
 .search-tag {
   background: #3897c1;
   color: white;
@@ -395,7 +416,6 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     opacity: .6;
-    transition: opacity .15s ease-out;
 
     &:hover {
       opacity: 1;

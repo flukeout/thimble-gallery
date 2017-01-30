@@ -16,8 +16,8 @@ var gallery = {
 
     this.galleryEl.on("click",".clear",function(){ that.clearSearch() });
     this.galleryEl.on("keydown",".search",function(e){ that.keyPressed(e) });
-    this.galleryEl.on("focus",".search",function(e){ that.toggleClear() });
-    this.galleryEl.on("blur",".search",function(e){ that.toggleClear() });
+    this.galleryEl.on("focus",".search",function(e){ that.updateUI() });
+    this.galleryEl.on("blur",".search",function(e){ that.updateUI() });
     this.galleryEl.on("click",".tag",function(){ that.tagClicked($(this).attr("tag")) });
     this.galleryEl.on("click",".search-tags .remove",function(){ that.removeTag($(this).parent()) });
     this.galleryEl.on("click",".start-over",function(){ that.startOver() });
@@ -35,7 +35,7 @@ var gallery = {
     }
     tag.remove();
     this.filterActivities();
-    this.toggleClear();
+    this.updateUI();
   },
 
   typeInterval : false, // Keeps track of if a user is typing
@@ -59,7 +59,7 @@ var gallery = {
 
     // if($(".search").val().length > 0) {
       this.typeInterval = setTimeout(function(){
-        that.toggleClear();
+        that.updateUI();
         that.filterActivities();
       }, that.searchSpeed);
     // }
@@ -88,13 +88,12 @@ var gallery = {
       this.term = $(".search").val().toLowerCase();
       for(var i = 0; i < this.activities.length; i++) {
         var activity = this.activities[i];
-        var searchString = activity.title + activity.description + activity.tags;
+        var searchString = activity.title + activity.description + activity.tags + activity.author;
         searchString = searchString.toLowerCase();
 
         activity.display = true;
 
         // Check all the search terms...
-
         for(var j = 0; j < this.searchTerms.length; j++) {
           var thisTerm = this.searchTerms[j];
           searchString.indexOf(thisTerm) < 0 ? activity.display = false : null;
@@ -109,6 +108,7 @@ var gallery = {
     $(".activities, .popular-tags").addClass("fade");
     setTimeout(function(){
       that.displayActivities(that.activities);
+      that.updateUI();
     },150)
     setTimeout(function(){
       $(".fade").removeClass("fade");
@@ -122,6 +122,7 @@ var gallery = {
       <a class='thumbnail'></a>
       <div class='details'>
         <h1 class='title'></h1>
+        <p class='author'>By <a href='#'>Mozilla</a></p>
         <p class='description'></p>
         <div class='tags'></div>
       </div>
@@ -138,7 +139,6 @@ var gallery = {
 
     $(".activities *").remove();
 
-
     var resultCount = 0
 
     for(var i = 0; i < activities.length; i++) {
@@ -150,6 +150,8 @@ var gallery = {
         newItem.find(".thumbnail").css("background-image","url("+activity.thumbnail_url+")" );
         newItem.find(".thumbnail").attr("href", activity.url);
         newItem.find(".title").text(activity.title);
+        newItem.find(".author a").text(activity.author);
+        newItem.find(".author a").attr("href", activity.author_url);
         newItem.find(".description").text(activity.description);
         newItem.find(".remix").attr("href", activity.url + "/remix");
         newItem.find(".teaching-kit").attr("href", activity.teaching_kit_url);
@@ -161,25 +163,6 @@ var gallery = {
         $(".activities").append(newItem);
       }
     }
-
-    if(resultCount > 0) {
-      $(".no-results").hide();
-    } else {
-      $(".no-results").show();
-    }
-
-    if(resultCount > 1) {
-      $(".popular-tags").show();
-    } else {
-      $(".popular-tags").hide();
-    }
-
-    if(this.mode == "featured" || resultCount == 0) {
-      this.displayTags("featured");
-    } else {
-      this.displayTags("search");
-    }
-
 
   },
 
@@ -251,8 +234,6 @@ var gallery = {
 
   // Handles when any tag is clicked.
   tagClicked : function(term) {
-
-
     $(".search-tags").append("<span tag='"+term+"'class='search-tag'>" + term + "<a class='remove'></a></span>");
 
     $(".search-wrapper-outer").addClass("pop");
@@ -260,21 +241,35 @@ var gallery = {
       $(".search-wrapper-outer").removeClass("pop");
     },200)
 
-
-
     this.searchTerms.push(term);
     this.filterActivities();
-    this.toggleClear();
+    this.updateUI();
   },
 
 
   // Shows and hides the clear button in the search field when appropriate
-  toggleClear: function() {
+  updateUI: function() {
 
     if($(".search").is(":focus")){
       this.galleryEl.addClass("has-focus");
     } else {
       this.galleryEl.removeClass("has-focus");
+    }
+
+    var displaycount = 0
+
+    for(var i = 0; i < this.activities.length; i++) {
+      var activity = this.activities[i];
+      if(activity.display) {
+        displaycount++;
+      }
+    }
+
+    if(this.mode == "search") {
+      var string = displaycount + " project" + ( displaycount > 1 ? "s" : "") + " found";
+      this.galleryEl.find(".results-title").text(string);
+    } else {
+      this.galleryEl.find(".results-title").text("Featured projects");
     }
 
     var termLength = $(".search").val().length;
@@ -287,8 +282,29 @@ var gallery = {
 
     if(this.searchTerms.length > 0) {
       this.galleryEl.addClass("has-tags");
+
     } else {
       this.galleryEl.removeClass("has-tags");
+    }
+
+    if(displaycount > 0) {
+      $(".no-results").hide();
+      this.galleryEl.find(".results-title").show();
+    } else {
+      $(".no-results").show();
+      this.galleryEl.find(".results-title").hide();
+    }
+
+    if(displaycount > 1) {
+      $(".popular-tags").css("opacity",1);
+    } else {
+      $(".popular-tags").css("opacity",0);
+    }
+
+    if(this.mode == "featured" || displaycount == 0) {
+      this.displayTags("featured");
+    } else {
+      this.displayTags("search");
     }
 
   },
@@ -312,6 +328,6 @@ var gallery = {
     $(".search").val("");
 
     this.filterActivities();
-    this.toggleClear();
+    this.updateUI();
   },
 }
