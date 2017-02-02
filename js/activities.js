@@ -40,7 +40,8 @@ var activities = [
     tags: ["images","links","story","creative"],
     teaching_kit_url: "https://thimbleprojects.org/mozillalearning/11288/",
     author : "Mozilla",
-    author_url: "http://learning.mozilla.org"
+    author_url: "http://learning.mozilla.org",
+    featured : true
   },
   {
     title: "Homework Excuse Generator",
@@ -50,7 +51,8 @@ var activities = [
     tags: ["code","array","javascript","js"],
     teaching_kit_url: "https://thimbleprojects.org/mozillalearning/11701/",
     author : "Mozilla",
-    author_url: "http://learning.mozilla.org"
+    author_url: "http://learning.mozilla.org",
+    featured : true
   },
   {
     title: "My Six Word Summer",
@@ -60,6 +62,38 @@ var activities = [
     tags: ["html","writing","narrative"],
     teaching_kit_url: "https://thimbleprojects.org/mozillalearning/11704/",
     author : "Mozilla",
+    author_url: "http://learning.mozilla.org",
+    featured : true
+  },
+  {
+    title: "p5.js sarter project",
+    url: "https://thimbleprojects.org/flukeout/172572/",
+    thumbnail_url : "https://thimbleprojects.org/flukeout/172572/thumbnail.gif",
+    description: "Get started with this fun javascript drawing library.",
+    tags: ["javascript","js","processing","p5","graphics", "art"],
+    author : "flukeout",
     author_url: "http://learning.mozilla.org"
-  }
+  },
+  {
+    title: "Dapper Fox Hat Animation",
+    url: "https://thimbleprojects.org/flukeout/16745/",
+    thumbnail_url : "https://thimbleprojects.org/flukeout/16745/images/thumbnail.gif",
+    description: "Learn CSS animations to give the Dapper Fox a nifty hat-tip.",
+    tags: ["animation","css"],
+    author : "flukeout",
+    author_url: "http://learning.mozilla.org"
+  },
+  {
+    title: "Remixable Facebook Post",
+    url: "https://thimbleprojects.org/flukeout/196676/",
+    thumbnail_url : "https://thimbleprojects.org/flukeout/196676/thumbnail.jpg",
+    description: "Create your own fake Facebook post and comments.",
+    tags: ["html","css","fake"],
+    author : "flukeout",
+    author_url: "http://learning.mozilla.org"
+  },
+
 ];
+
+
+

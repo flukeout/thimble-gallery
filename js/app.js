@@ -16,9 +16,13 @@ var gallery = {
 
     this.galleryEl.on("click",".clear",function(){ that.clearSearch() });
     this.galleryEl.on("keydown",".search",function(e){ that.keyPressed(e) });
-    this.galleryEl.on("focus",".search",function(e){ that.updateUI() });
-    this.galleryEl.on("blur",".search",function(e){ that.updateUI() });
+
     this.galleryEl.on("click",".tag",function(){ that.tagClicked($(this).attr("tag")) });
+
+    // Updates the focus styling on the text search field
+    this.galleryEl.on("focus",".search",function(e){ that.updateFocus() });
+    this.galleryEl.on("blur",".search",function(e){ that.updateFocus() });
+
     this.galleryEl.on("click",".search-tags .remove",function(){ that.removeTag($(this).parent()) });
     this.galleryEl.on("click",".start-over",function(){ that.startOver() });
 
@@ -26,14 +30,15 @@ var gallery = {
     this.filterActivities();
   },
 
-  removeTag : function(tag) {
 
-    var tagName = tag.attr("tag");
+  // Removes one of the tags that is currently being used as a filter
+  removeTag : function(tagEl) {
+    var tagName = tagEl.attr("tag");
     var index = this.searchTags.indexOf(tagName);
     if(index > -1) {
       this.searchTags.splice(index,1);
     }
-    tag.remove();
+    tagEl.remove();
     this.filterActivities();
     this.updateUI();
   },
@@ -107,16 +112,16 @@ var gallery = {
       }
     }
 
-
     var that = this;
-    $(".activities, .popular-tags").addClass("fade");
+    $(".activities").addClass("fade");
+
     setTimeout(function(){
       that.displayActivities(that.activities);
       that.updateUI();
-    },150)
+    },150);
     setTimeout(function(){
       $(".fade").removeClass("fade");
-    },300)
+    },300);
 
   },
 
@@ -157,7 +162,15 @@ var gallery = {
         newItem.find(".author a").text(activity.author);
         newItem.find(".author a").attr("href", activity.author_url);
         newItem.find(".description").text(activity.description);
-        newItem.find(".remix").attr("href", activity.url + "/remix");
+
+
+        // Check if activity_url ends with a slash, if it doesn't - add one before adding "remix"
+        var remix = "remix";
+        var endsWithSlash = (activity.url.charAt(activity.url.length-1) == "/")
+        if(!endsWithSlash) {
+          remix = "/remix"
+        }
+        newItem.find(".remix").attr("href", activity.url + remix);
         newItem.find(".teaching-kit").attr("href", activity.teaching_kit_url);
 
         for(var j = 0; j < activity.tags.length; j++) {
@@ -238,6 +251,8 @@ var gallery = {
 
   // Handles when any tag is clicked.
   tagClicked : function(term) {
+    console.log("tagClicked");
+
     $(".search-tags").append("<span tag='"+term+"'class='search-tag'>" + term + "<a class='remove'></a></span>");
 
     $(".search-wrapper-outer").addClass("pop");
@@ -251,14 +266,18 @@ var gallery = {
   },
 
 
-  // Shows and hides the clear button in the search field when appropriate
-  updateUI: function() {
+  updateFocus: function() {
 
     if($(".search").is(":focus")){
       this.galleryEl.addClass("has-focus");
     } else {
       this.galleryEl.removeClass("has-focus");
     }
+
+  },
+
+  // Shows and hides the clear button in the search field when appropriate
+  updateUI: function() {
 
     var displaycount = 0
 
@@ -312,6 +331,8 @@ var gallery = {
     }
 
   },
+
+
 
 
   startOver : function(){
