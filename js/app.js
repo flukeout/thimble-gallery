@@ -163,7 +163,6 @@ var gallery = {
         newItem.find(".author a").attr("href", activity.author_url);
         newItem.find(".description").text(activity.description);
 
-
         // Check if activity_url ends with a slash, if it doesn't - add one before adding "remix"
         var remix = "remix";
         var endsWithSlash = (activity.url.charAt(activity.url.length-1) == "/")
@@ -180,7 +179,6 @@ var gallery = {
         $(".activities").append(newItem);
       }
     }
-
   },
 
 
@@ -251,7 +249,6 @@ var gallery = {
 
   // Handles when any tag is clicked.
   tagClicked : function(term) {
-    console.log("tagClicked");
 
     $(".search-tags").append("<span tag='"+term+"'class='search-tag'>" + term + "<a class='remove'></a></span>");
 
@@ -263,6 +260,8 @@ var gallery = {
     this.searchTags.push(term);
     this.filterActivities();
     this.updateUI();
+
+    // TODO - add GA tracking event here
   },
 
 
@@ -331,9 +330,6 @@ var gallery = {
     }
 
   },
-
-
-
 
   startOver : function(){
     $(".search").val("");

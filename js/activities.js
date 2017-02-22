@@ -7,7 +7,7 @@ var activities = [
     tags: ["css","html","color","design"],
     featured : true,
     teaching_kit_url: "https://thimbleprojects.org/mozillalearning/171/",
-    author : "Mozilla",
+    author : "mozilla",
     author_url: "http://learning.mozilla.org"
   },
   {
@@ -18,7 +18,7 @@ var activities = [
     tags: ["images","code","javascript","interactive","js"],
     teaching_kit_url: "https://thimbleprojects.org/mozillalearning/62/",
     featured : true,
-    author : "Mozilla",
+    author : "mozilla",
     author_url: "http://learning.mozilla.org"
   },
   {
@@ -29,7 +29,7 @@ var activities = [
     tags: ["fun","images","attribution","search","img"],
     featured : true,
     teaching_kit_url: "https://thimbleprojects.org/mozillalearning/171/",
-    author : "Mozilla",
+    author : "mozilla",
     author_url: "http://learning.mozilla.org"
   },
   {
@@ -39,7 +39,7 @@ var activities = [
     description: "Make a simple website to share what you love.",
     tags: ["images","links","story","creative"],
     teaching_kit_url: "https://thimbleprojects.org/mozillalearning/11288/",
-    author : "Mozilla",
+    author : "mozilla",
     author_url: "http://learning.mozilla.org",
     featured : true
   },
@@ -67,33 +67,74 @@ var activities = [
   },
   {
     title: "p5.js sarter project",
-    url: "https://thimbleprojects.org/flukeout/172572/",
-    thumbnail_url : "https://thimbleprojects.org/flukeout/172572/thumbnail.gif",
+    url: "https://thimbleprojects.org/mozillalearning/213461/",
+    thumbnail_url : "https://thimbleprojects.org/mozillalearning/213461/thumbnail.gif",
     description: "Get started with this fun javascript drawing library.",
     tags: ["javascript","js","processing","p5","graphics", "art"],
-    author : "flukeout",
+    author : "mozilla",
     author_url: "http://learning.mozilla.org"
   },
   {
     title: "Dapper Fox Hat Animation",
-    url: "https://thimbleprojects.org/flukeout/16745/",
-    thumbnail_url : "https://thimbleprojects.org/flukeout/16745/images/thumbnail.gif",
+    url: "https://thimbleprojects.org/mozillalearning/213517/",
+    thumbnail_url : "https://thimbleprojects.org/mozillalearning/213517/images/thumbnail.gif",
     description: "Learn CSS animations to give the Dapper Fox a nifty hat-tip.",
     tags: ["animation","css"],
-    author : "flukeout",
+    author : "mozilla",
     author_url: "http://learning.mozilla.org"
   },
   {
     title: "Remixable Facebook Post",
-    url: "https://thimbleprojects.org/flukeout/196676/",
-    thumbnail_url : "https://thimbleprojects.org/flukeout/196676/thumbnail.jpg",
+    url: "https://thimbleprojects.org/mozillalearning/213492/",
+    thumbnail_url : "https://thimbleprojects.org/mozillalearning/213492/thumbnail.jpg",
     description: "Create your own fake Facebook post and comments.",
-    tags: ["html","css","fake"],
-    author : "flukeout",
+    tags: ["html","css"],
+    author : "mozilla",
     author_url: "http://learning.mozilla.org"
   },
-
+  {
+    title: "Revise a Business page",
+    url: "https://thimbleprojects.org/mozillalearning/213466/",
+    thumbnail_url : "https://thimbleprojects.org/mozillalearning/213466/thumbnail.gif",
+    description: "Create a page for your imaginary business.",
+    tags: ["html","css","content"],
+    author : "mozilla",
+    author_url: "http://learning.mozilla.org"
+  },
+  {
+    title: "Revise a Résumé",
+    url: "https://thimbleprojects.org/mozillalearning/213474/",
+    thumbnail_url : "https://thimbleprojects.org/mozillalearning/213474/thumbnail.gif",
+    description: "Create your own resume by chaning this HTML version.",
+    tags: ["html","css","content"],
+    author : "mozilla",
+    author_url: "http://learning.mozilla.org"
+  },
+  {
+    title: "#commontags Revision Project",
+    url: "https://thimbleprojects.org/mozillalearning/213458/",
+    thumbnail_url : "https://thimbleprojects.org/mozillalearning/213458/thumbnail.png",
+    description: "Use common HTML page to make the page look great.",
+    tags: ["html","content", "markup"],
+    author : "mozilla",
+    author_url: "http://learning.mozilla.org"
+  },
+  {
+    title: "CSS Building Blocks",
+    url: "https://thimbleprojects.org/mozillalearning/198703/",
+    thumbnail_url : "https://thimbleprojects.org/mozillalearning/198703/thumbnail.gif",
+    description: "Learn how to position HTML elements with CSS",
+    tags: ["html","css", "style","positioning"],
+    author : "mozilla",
+    author_url: "http://learning.mozilla.org"
+  },
+  {
+    title: "Make-a-Meme",
+    url: "https://thimbleprojects.org/mozillalearning/17083/",
+    thumbnail_url : "https://thimbleprojects.org/mozillalearning/17083/thumbnail.gif",
+    description: "Make your own meme by changing the captions and image",
+    tags: ["html","css", "style","text"],
+    author : "mozilla",
+    author_url: "http://learning.mozilla.org"
+  }
 ];
-
-
-
